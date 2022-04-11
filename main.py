@@ -25,7 +25,7 @@ screen.title("Snake Game")
 screen.tracer(0)
 # Wall
 box = Turtle()
-box.color("white")
+box.color("red")
 box.hideturtle()
 box.penup()
 box.goto(-screen_width / 2 + 2, screen_height / 2 - 2)
