@@ -5,31 +5,36 @@ DOWN = 270
 RIGHT = 0
 LEFT = 180
 
-class Snake:
 
+class Snake:
     starting = [(0, 0), (-20, 0), (-40, 0)]
     color = "white"
     snake = []
     move_step = 20
+    snake_head = {}
 
     def __init__(self):
         for pos in self.starting:
-            snake = Turtle(shape="square")
-            snake.color(self.color)
-            snake.penup()
-            snake.goto(pos)
-            self.snake += [snake]
+            self.add_segment(pos)
+        self.snake_head = self.snake[0]
 
-    def move(self, direction = "forward"):
+    def add_segment(self, position):
+        snake = Turtle(shape="circle")
+        snake.color(self.color)
+        snake.penup()
+        snake.goto(position)
+        self.snake += [snake]
+
+    def move(self, direction="forward"):
         # move its head
-        last_x = self.snake[0].xcor()
-        last_y = self.snake[0].ycor()
+        last_x = self.snake_head.xcor()
+        last_y = self.snake_head.ycor()
 
         if direction == "left":
-            self.snake[0].left(90)
+            self.snake_head.left(90)
         elif direction == "right":
-            self.snake[0].right(90)
-        self.snake[0].forward(self.move_step)
+            self.snake_head.right(90)
+        self.snake_head.forward(self.move_step)
 
         # move its body
         for body in range(1, len(self.snake)):
@@ -40,23 +45,35 @@ class Snake:
             last_y = y
 
     def move_up(self):
-        if self.snake[0].heading() != DOWN:
-            self.snake[0].setheading(90)
+        if self.snake_head.heading() != DOWN:
+            self.snake_head.setheading(90)
 
     def move_down(self):
-        if self.snake[0].heading() != UP:
-            self.snake[0].setheading(270)
+        if self.snake_head.heading() != UP:
+            self.snake_head.setheading(270)
 
     def move_right(self):
-        if self.snake[0].heading() != LEFT:
-            self.snake[0].setheading(0)
+        if self.snake_head.heading() != LEFT:
+            self.snake_head.setheading(0)
 
     def move_left(self):
-        if self.snake[0].heading() != RIGHT:
-            self.snake[0].setheading(180)
+        if self.snake_head.heading() != RIGHT:
+            self.snake_head.setheading(180)
 
     def pos_x(self):
-        return self.snake[0].xcor()
+        return self.snake_head.xcor()
 
     def pos_y(self):
-        return self.snake[0].ycor()
+        return self.snake_head.ycor()
+
+    def distance(self, pos):
+        return self.snake_head.distance(pos)
+
+    def extend_snake(self):
+        self.add_segment(self.snake[-1].position())
+
+    def check_collision_with_tail(self):
+        for segment in self.snake[1:]:
+            if self.snake_head.distance(segment) < 15:
+                return True
+        return False
