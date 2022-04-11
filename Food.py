@@ -13,8 +13,8 @@ class Food(Turtle):
         self.shapesize(stretch_wid=0.5, stretch_len=0.5)
         self.color("blue")
 
-        self.median_width = ( max_width - 2 ) / 2
-        self.median_height = ( max_height -2 ) / 2
+        self.median_width = ( max_width - 20 ) / 2
+        self.median_height = ( max_height -20 ) / 2
 
         self.refresh()
 
