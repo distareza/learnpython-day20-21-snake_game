@@ -13,10 +13,11 @@ class Food(Turtle):
         self.shapesize(stretch_wid=0.5, stretch_len=0.5)
         self.color("blue")
 
-        self.median_width = ( max_width - 20 ) / 2
-        self.median_height = ( max_height -20 ) / 2
+        self.median_width = (max_width / 2 - 20)
+        self.median_height = (max_height / 2 - 20)
 
         self.refresh()
 
     def refresh(self):
-        self.goto(random.randint(- self.median_width, self.median_width), random.randint(-self.median_height, self.median_height))
+        self.goto(random.randrange(- self.median_width, self.median_width, 30),
+                  random.randrange(-self.median_height, self.median_height, 30))

@@ -1,3 +1,4 @@
+import time
 from turtle import Turtle
 
 UP = 90
@@ -7,14 +8,20 @@ LEFT = 180
 
 
 class Snake:
-    starting = [(0, 0), (-20, 0), (-40, 0)]
+    init = [(0, 0), (-20, 0), (-40, 0)]
     color = "white"
     snake = []
     move_step = 20
     snake_head = {}
 
     def __init__(self):
-        for pos in self.starting:
+        for pos in self.init:
+            self.add_segment(pos)
+        self.snake_head = self.snake[0]
+
+    def create_snake(self):
+        self.snake = []
+        for pos in self.init:
             self.add_segment(pos)
         self.snake_head = self.snake[0]
 
@@ -24,6 +31,13 @@ class Snake:
         snake.penup()
         snake.goto(position)
         self.snake += [snake]
+
+    def reset(self):
+        time.sleep(1)
+        for snake in self.snake:
+            snake.goto(99999, 99999)
+        self.snake.clear()
+        self.create_snake()
 
     def move(self, direction="forward"):
         # move its head
@@ -77,3 +91,4 @@ class Snake:
             if self.snake_head.distance(segment) < 15:
                 return True
         return False
+

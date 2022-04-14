@@ -63,12 +63,16 @@ while True:
             snake.pos_y() > (screen_height / 2 - 20) or \
             snake.pos_y() < - (screen_height / 2 - 20):
         print("Hit the wall")
-        break
+        score_board.reset_scoreboard()
+        snake.reset()
+        continue
 
     # 8. Detect collision with tail
     if snake.check_collision_with_tail():
         print("Hit the body")
-        break
+        score_board.reset_scoreboard()
+        snake.reset()
+        continue
 
     # 6. Check if coalition with food
     if snake.distance(food) < 15:
@@ -80,7 +84,5 @@ while True:
 
     time.sleep(0.1)
     screen.update()
-
-print_game_over()
 
 screen.exitonclick()
